@@ -44,7 +44,7 @@ namespace ShortestPath
             // single source shortest path algorithm 
             // for a graph represented using adjacency 
             // matrix representation 
-            public void dijkstra(int[,] graph, int src)
+            public int[] dijkstra(int[,] graph, int src)
             {
                 V = graph.GetLength(0);
                 int[] dist = new int[V]; // The output array. dist[i] 
@@ -95,8 +95,7 @@ namespace ShortestPath
                             dist[v] = dist[u] + graph[u, v];
                 }
 
-                // print the constructed distance array 
-                printSolution(dist, V);
+                return dist;
             }
     }
 }

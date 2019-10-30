@@ -8,6 +8,12 @@ namespace ShortestPath
 {
     class Program
     {
+        static Dijkstra dijkstra = new Dijkstra();
+        static int numTests, numCities, numNeighbors, numPaths;
+        static int[][] distanceGraphs;
+        static string[] startCities, endCities;
+        static string connection;
+
         static void Main(string[] args)
         {
 
@@ -21,9 +27,7 @@ namespace ShortestPath
             NAME1 NAME2 [NAME1 - source, NAME2 - destination]
             [empty line separating the tests]*/
 
-            Dijkstra dijkstra = new Dijkstra();
-            int numTests, numCities, numNeighbors, numPaths;
-            string connection, output;
+          
 
             Console.Write("Enter number of test: ");
             numTests = Int32.Parse(Console.ReadLine());
@@ -52,15 +56,28 @@ namespace ShortestPath
             {
                 Console.Write("Enter number of paths: ");
                 numPaths = Int32.Parse(Console.ReadLine());
-                String[] paths = new string[numPaths];
+                String[] paths = new String[numPaths];
+                distanceGraphs = new int[numPaths][];
+                startCities = new String[numPaths];
+                endCities = new String[numPaths];
+
                 for (int j = 0; j < numPaths; j++)
                 {
-                    Console.Write("Enter connection (e.g. 1 2): ");
+                    Console.Write("Enter connection (e.g. city1 city2): ");
                     paths[j] = Console.ReadLine();
+                    startCities[j] = paths[j].Split(' ')[0];
+                    endCities[j] = paths[j].Split(' ')[1];
+
+                    distanceGraphs[j] = dijkstra.dijkstra(connections, Array.IndexOf(cities, startCities[j]));
                 }
             }
 
-            dijkstra.dijkstra(connections, 0);
+            Console.WriteLine("Output:\n");
+            for (int i = 0; i < numPaths; i++)
+            {
+                Console.WriteLine(distanceGraphs[i][Array.IndexOf(cities, endCities[i])]);
+
+            }
 
 
             Console.ReadLine();
