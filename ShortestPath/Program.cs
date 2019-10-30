@@ -21,6 +21,7 @@ namespace ShortestPath
             NAME1 NAME2 [NAME1 - source, NAME2 - destination]
             [empty line separating the tests]*/
 
+            Dijkstra dijkstra = new Dijkstra();
             int numTests, numCities, numNeighbors, numPaths;
             string connection, output;
 
@@ -29,21 +30,21 @@ namespace ShortestPath
 
             Console.Write("Enter number of cities: ");
             numCities = Int32.Parse(Console.ReadLine());
-            String[] cities = new String[numCities + 1];
-            int[,] connections = new int[numCities + 1,numCities + 1];
+            String[] cities = new String[numCities];
+            int[,] connections = new int[numCities,numCities];
 
-            for (int i = 1; i <= numCities; i++)
+            for (int i = 0; i < numCities; i++)
             {
                 Console.Write("Enter name of city: ");
                 cities[i] = Console.ReadLine();
                 Console.Write("Enter number of neighbors for city: ");
                 numNeighbors = Int32.Parse(Console.ReadLine());
 
-                for (int j = 1; j <= numNeighbors; j++)
+                for (int j = 0; j < numNeighbors; j++)
                 {
                     Console.Write("Enter connection (e.g. 1 2): ");
                     connection = Console.ReadLine();
-                    connections[i, Int32.Parse(connection[0].ToString())] = Int32.Parse(connection[2].ToString());
+                    connections[i, Int32.Parse(connection[0].ToString()) - 1] = Int32.Parse(connection[2].ToString());
                 }
             }
 
@@ -59,7 +60,7 @@ namespace ShortestPath
                 }
             }
 
-
+            dijkstra.dijkstra(connections, 0);
 
 
             Console.ReadLine();
